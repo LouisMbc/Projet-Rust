@@ -81,15 +81,26 @@ fn retourner_livre(biblio: &mut Vec<Livre>) {
             return;
         }
     }
-
     println!("Livre introuvable");
+}
+
+//affichage des livres
+fn afficher_livres(biblio: &Vec<Livre>) {
+    println!("Liste des livres :");
+    for livre in biblio {
+        let statut = if livre.disponible { "Disponible" } else { "Emprunté" };
+        println!(
+            "- {} | {} | {} | {}",
+            livre.titre, livre.auteur, livre.annee, statut
+        );
+    }
 }
 
 fn main() {
     let mut biblio: Vec<Livre> = Vec::new();
     
-    println!("ajout et  emprunt");
     ajouter_livre(&mut biblio);
     emprunter_livre(&mut biblio);
     retourner_livre(&mut biblio);
+    afficher_livres(&biblio);
 }
