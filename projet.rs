@@ -89,10 +89,18 @@ fn afficher_livres(biblio: &Vec<Livre>) {
     println!("Liste des livres :");
     for livre in biblio {
         let statut = if livre.disponible { "Disponible" } else { "Emprunté" };
-        println!(
-            "- {} | {} | {} | {}",
-            livre.titre, livre.auteur, livre.annee, statut
+        println!("- {} | {} | {} | {}",livre.titre, livre.auteur, livre.annee, statut
         );
+    }
+}
+
+// affichage des livres disponibles
+fn afficher_livres_disponibles(biblio: &Vec<Livre>) {
+    println!("Livres disponibles :");
+    for livre in biblio {
+        if livre.disponible {
+            println!("- {} | {} | {}",livre.titre, livre.auteur, livre.annee);
+        }
     }
 }
 
@@ -101,6 +109,7 @@ fn main() {
     
     ajouter_livre(&mut biblio);
     emprunter_livre(&mut biblio);
-    retourner_livre(&mut biblio);
     afficher_livres(&biblio);
+    retourner_livre(&mut biblio);
+    afficher_livres_disponibles(&mut biblio);
 }
