@@ -65,10 +65,31 @@ fn emprunter_livre(biblio: &mut Vec<Livre>) {
     println!("Livre introuvable");
 }
 
+//retour du livre
+fn retourner_livre(biblio: &mut Vec<Livre>) {
+    println!("Titre du livre à retourner :");
+    let titre = lire_ligne();
+
+    for livre in biblio.iter_mut() {
+        if livre.titre == titre {
+            if !livre.disponible {
+                livre.disponible = true;
+                println!("Livre retourné");
+            } else {
+                println!("Ce livre n'était pas emprunté");
+            }
+            return;
+        }
+    }
+
+    println!("Livre introuvable");
+}
+
 fn main() {
     let mut biblio: Vec<Livre> = Vec::new();
     
     println!("ajout et  emprunt");
     ajouter_livre(&mut biblio);
     emprunter_livre(&mut biblio);
+    retourner_livre(&mut biblio);
 }
