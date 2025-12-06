@@ -1,4 +1,4 @@
-use std::io;
+use std::io::{self, Write};
 
 //structure livre
 #[derive(Clone)]
@@ -106,10 +106,33 @@ fn afficher_livres_disponibles(biblio: &Vec<Livre>) {
 
 fn main() {
     let mut biblio: Vec<Livre> = Vec::new();
-    
-    ajouter_livre(&mut biblio);
-    emprunter_livre(&mut biblio);
-    afficher_livres(&biblio);
-    retourner_livre(&mut biblio);
-    afficher_livres_disponibles(&mut biblio);
+
+    println!("\n---- Bibliothèque ----");
+    println!("1. Ajouter un livre");
+    println!("2. Emprunter un livre");
+    println!("3. Retourner un livre");
+    println!("4. Afficher tous les livres");
+    println!("5. Afficher les livres disponibles");
+    println!("6. Quitter");
+
+    loop {
+        print!("\nVotre choix (1-6): ");
+        io::stdout().flush().unwrap();//pour éviter de faire entré après avvoir terminé une action
+        let choix = lire_ligne();
+
+        match choix.as_str() {
+            "1" => {println!("votre choix est 1"); 
+            ajouter_livre(&mut biblio);},
+            "2" => {println!("votre choix est 2"); 
+            emprunter_livre(&mut biblio);},
+            "3" => {println!("votre choix est 3"); 
+            retourner_livre(&mut biblio);},
+            "4" => {println!("votre choix est 4"); 
+            afficher_livres(&biblio);},
+            "5" => {println!("votre choix est 5"); 
+            afficher_livres_disponibles(&biblio);},
+            "6" => {break;}
+            _ => println!("Choix invalide"),
+        }
+    }
 }
